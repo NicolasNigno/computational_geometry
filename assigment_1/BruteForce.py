@@ -2,7 +2,7 @@ from cloud import uniformCloud
 import numpy as np
 from matplotlib import pyplot as plt
 
-cloud_1 = uniformCloud(100)
+cloud_1 = uniformCloud(10,100,100)
 
 def BruteForce(cloud):
     
