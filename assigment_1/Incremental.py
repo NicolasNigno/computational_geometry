@@ -1,8 +1,10 @@
 from cloud import uniformCloud
+from cloud import gaussianCloud
 import numpy as np
 from matplotlib import pyplot as plt
+import time
 
-cloud_1 = uniformCloud(10,100,100)
+cloud_1 = gaussianCloud(1,0.5,200)
 
 def cruz_crit(array1):
     px = array1[-3][0]
@@ -16,6 +18,8 @@ def cruz_crit(array1):
     
 
 def Incremental(cloud):
+    
+    start_time = time.time()
     
     convexhull_up = np.empty([0,2])
     convexhull_lw = np.empty([0,2])
@@ -33,8 +37,10 @@ def Incremental(cloud):
         except IndexError:
             cruz = np.nan
         
-        while len(convexhull_up) > 2 and cruz <= 0:
+        while len(convexhull_up) > 2 and cruz < 0:
             convexhull_up = np.delete(convexhull_up, -2, axis=0)
+            
+        print(i, convexhull_up)
             
 
     ##Lower Hull
@@ -50,15 +56,14 @@ def Incremental(cloud):
         except IndexError:
             cruz = np.nan  
         
-        while len(convexhull_lw) > 2 and cruz <= 0:
+        while len(convexhull_lw) > 2 and cruz < 0:
             convexhull_lw = np.delete(convexhull_lw, -2, axis=0)
                            
-    
+    print("Tiempo de ejecucion: %s seconds." % (time.time() - start_time))
     return np.append(convexhull_up,convexhull_lw,axis=0), convexhull_up, convexhull_lw
 
 convexhull, convexhull_up, convexhull_lw = Incremental(cloud_1)
 
-print(convexhull_up[-1][0])
 ax = plt.gca()
 ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
 ax.scatter(convexhull[:,0], convexhull[:,1], c='green')

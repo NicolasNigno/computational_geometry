@@ -1,10 +1,14 @@
 from cloud import uniformCloud
+from cloud import gaussianCloud
 import numpy as np
 from matplotlib import pyplot as plt
+import time
 
-cloud_1 = uniformCloud(10,100,100)
+cloud_1 = gaussianCloud(1,0.5,200)
 
 def BruteForce(cloud):
+    
+    start_time = time.time()
     
     convexhull = np.empty([0,2])
     
@@ -27,6 +31,7 @@ def BruteForce(cloud):
                     new = np.array([[px,py], [qx, qy]])
                     convexhull = np.append(convexhull, new , axis=0)
     
+    print("Tiempo de ejecucion: %s seconds." % (time.time() - start_time))
     return convexhull
 
 convexhull = BruteForce(cloud_1)
