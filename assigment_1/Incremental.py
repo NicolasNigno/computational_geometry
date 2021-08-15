@@ -1,10 +1,11 @@
 from cloud import uniformCloud
 from cloud import gaussianCloud
+from greenTheorem import greenTheorem
 import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-cloud_1 = gaussianCloud(1,0.5,200)
+cloud_1 = gaussianCloud(1,0.5,1000)
 
 def cruz_crit(array1):
     px = array1[-3][0]
@@ -32,17 +33,9 @@ def Incremental(cloud):
         new = np.array([[cloud[i][0],cloud[i][1]]])
         convexhull_up = np.append(convexhull_up,new,axis=0)
         
-        try:
-            cruz = cruz_crit(convexhull_up) 
-        except IndexError:
-            cruz = np.nan
-        
-        while len(convexhull_up) > 2 and cruz < 0:
+        while len(convexhull_up) > 2 and cruz_crit(convexhull_up) < 0:
             convexhull_up = np.delete(convexhull_up, -2, axis=0)
             
-        print(i, convexhull_up)
-            
-
     ##Lower Hull
     cloud.view('f8,f8')[::-1].sort(order=['f0','f1'], axis=0)
     
@@ -51,15 +44,12 @@ def Incremental(cloud):
         new = np.array([[cloud[i][0],cloud[i][1]]])
         convexhull_lw = np.append(convexhull_lw,new,axis=0)
         
-        try:
-            cruz = cruz_crit(convexhull_lw) 
-        except IndexError:
-            cruz = np.nan  
-        
-        while len(convexhull_lw) > 2 and cruz < 0:
+        while len(convexhull_lw) > 2 and cruz_crit(convexhull_lw) < 0:
             convexhull_lw = np.delete(convexhull_lw, -2, axis=0)
                            
-    print("Tiempo de ejecucion: %s seconds." % (time.time() - start_time))
+    area_ch = greenTheorem(np.append(convexhull_up,convexhull_lw,axis=0))
+    
+    print("Tiempo de ejecucion - Incremental: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     return np.append(convexhull_up,convexhull_lw,axis=0), convexhull_up, convexhull_lw
 
 convexhull, convexhull_up, convexhull_lw = Incremental(cloud_1)

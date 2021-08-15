@@ -1,10 +1,11 @@
 from cloud import uniformCloud
 from cloud import gaussianCloud
+from greenTheorem import greenTheorem
 import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-cloud_1 = gaussianCloud(1,0.5,200)
+cloud_1 = gaussianCloud(1,0.5,1000)
 
 def BruteForce(cloud):
     
@@ -30,8 +31,11 @@ def BruteForce(cloud):
                 if all_right == True:
                     new = np.array([[px,py], [qx, qy]])
                     convexhull = np.append(convexhull, new , axis=0)
+                    
+    area_ch = greenTheorem(convexhull)
     
-    print("Tiempo de ejecucion: %s seconds." % (time.time() - start_time))
+    
+    print("Tiempo de ejecucion - BruteForce: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     return convexhull
 
 convexhull = BruteForce(cloud_1)
