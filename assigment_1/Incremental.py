@@ -5,7 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-cloud_1 = gaussianCloud(1,0.5,1000)
 
 def cruz_crit(array1):
     px = array1[-3][0]
@@ -50,11 +49,4 @@ def Incremental(cloud):
     area_ch = greenTheorem(np.append(convexhull_up,convexhull_lw,axis=0))
     
     print("Tiempo de ejecucion - Incremental: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
-    return np.append(convexhull_up,convexhull_lw,axis=0), convexhull_up, convexhull_lw
-
-convexhull, convexhull_up, convexhull_lw = Incremental(cloud_1)
-
-ax = plt.gca()
-ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
-ax.scatter(convexhull[:,0], convexhull[:,1], c='green')
-plt.show()
+    return np.append(convexhull_up,convexhull_lw,axis=0)

@@ -5,8 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-cloud_1 = gaussianCloud(1,0.5,1000)
-
 def BruteForce(cloud):
     
     start_time = time.time()
@@ -37,11 +35,3 @@ def BruteForce(cloud):
     
     print("Tiempo de ejecucion - BruteForce: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     return convexhull
-
-convexhull = BruteForce(cloud_1)
-
-
-ax = plt.gca()
-ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
-ax.scatter(convexhull[:,0], convexhull[:,1], c='green')
-plt.show()
