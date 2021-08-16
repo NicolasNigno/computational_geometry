@@ -32,6 +32,5 @@ def BruteForce(cloud):
                     
     area_ch = greenTheorem(convexhull)
     
-    
     print("Tiempo de ejecucion - BruteForce: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     return convexhull

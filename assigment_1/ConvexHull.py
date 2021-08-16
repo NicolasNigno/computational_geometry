@@ -9,7 +9,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-loop_list = [1000]
+loop_list = [100,200,500,1000,1500,10000,20000,50000,100000,150000,200000,1000000]
 
 def ConvexHull(loop):
     
@@ -17,19 +17,23 @@ def ConvexHull(loop):
         
         print(i)
         cloud_1 = gaussianCloud(1,0.5,i)
-        
-        convexhull_1 = BruteForce(cloud_1)
-        ax = plt.gca()
-        ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
-        ax.scatter(convexhull_1[:,0], convexhull_1[:,1], c='green')
-        plt.savefig('Results/BruteForce %2s.png' %i)
-        np.savetxt('Results/BruteForce %2s.csv' %i, convexhull_1, delimiter=",")
-        
+
+        if i <= 2000:
+            
+            convexhull_1 = BruteForce(cloud_1)
+            ax = plt.gca()
+            ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
+            ax.scatter(convexhull_1[:,0], convexhull_1[:,1], c='green')
+            plt.savefig('Results/BruteForce %2s.png' %i)
+            plt.clf()
+            np.savetxt('Results/BruteForce %2s.csv' %i, convexhull_1, delimiter=",")
+            
         convexhull_2 = Incremental(cloud_1)
         ax = plt.gca()
         ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
         ax.scatter(convexhull_2[:,0], convexhull_2[:,1], c='green')
         plt.savefig('Results/Incremental %2s.png' %i)
+        plt.clf()
         np.savetxt('Results/Incremental %2s.csv' %i, convexhull_2, delimiter=",")
     
         #convexhull_3 = divide_conquer(cloud_1)
