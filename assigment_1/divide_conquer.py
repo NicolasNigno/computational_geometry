@@ -1,7 +1,7 @@
 import numpy as np
-from tqdm import tqdm
 from multiprocessing import Pool
 import multiprocessing
+import time
 
 def splitCloud(cloud, size_group):
     n = len(cloud)
@@ -40,15 +40,15 @@ def BruteForce(cloud):
 
 def divide_conquer(cloud):
     
-    num_cores = 2*multiprocessing.cpu_count()
-    print( 'num_processors: %s' %num_cores)
+    start_time = time.time()
+    num_cores = 2*multiprocessing.cpu_count()    
     
     while cloud.shape[0] > 100:
         groups = splitCloud(cloud, 50)
-        print( 'num_grupos: %s' %len(groups))
         pool = Pool(num_cores)
         result = pool.map(func=BruteForce, iterable = groups,)
         cloud = np.concatenate(result)
-        print( 'cloud_size: %s' %cloud.shape[0])
+    
+    print("Tiempo de ejecucion - divide & conquer: %s seconds." % (time.time() - start_time))
     
     return BruteForce(cloud)
