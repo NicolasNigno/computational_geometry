@@ -15,7 +15,7 @@ def getUnique(cloud):
     new_array = [tuple(row) for row in cloud]
     return np.unique(new_array, axis=0)
 
-def BruteForce(cloud):
+def brute_force(cloud):
     convexhull = np.empty([0,2])
     
     for p in range(len(cloud)):
@@ -41,16 +41,25 @@ def BruteForce(cloud):
 
 def divide_conquer(cloud):
     
+    print('version2')
+    
     start_time = time.time()
     num_cores = 2*multiprocessing.cpu_count()    
     
+    i = 0
     while cloud.shape[0] > 100:
         groups = splitCloud(cloud, 50)
         pool = Pool(num_cores)
-        result = pool.map(func=BruteForce, iterable = groups,)
+        result = pool.map(func=brute_force, iterable = groups,)
         cloud = np.concatenate(result)
+        
+        i+=1
+        if i >= 10:
+            break
     
-    area_ch = greenTheorem(BruteForce(cloud))
+    final_convex_hull = brute_force(cloud)
+    
+    area_ch = greenTheorem(final_convex_hull)
     print("Tiempo de ejecucion - divide & conquer: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     
-    return BruteForce(cloud)
+    return final_convex_hull
