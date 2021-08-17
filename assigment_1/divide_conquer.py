@@ -42,18 +42,21 @@ def brute_force(cloud):
 def divide_conquer(cloud):
     
     start_time = time.time()
+    
+    """
     num_cores = 2*multiprocessing.cpu_count()    
     
-    i = 0
     while cloud.shape[0] > 100:
         groups = splitCloud(cloud, 50)
         pool = Pool(num_cores)
         result = pool.map(func=brute_force, iterable = groups,)
         cloud = np.concatenate(result)
-        
-        i+=1
-        if i >= 10:
-            break
+    """
+    
+    while cloud.shape[0] > 100:
+        groups = splitCloud(cloud, 50)
+        convex_hulls = [brute_force(group) for group in groups]
+        cloud = np.concatenate(convex_hulls)
     
     final_convex_hull = brute_force(cloud)
     
