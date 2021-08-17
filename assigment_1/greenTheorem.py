@@ -1,6 +1,7 @@
 import numpy as np
 
 def greenTheorem(array):
+    array = array[array[:, 0].argsort()]
     x_vector = array[:,0]
     y_vector = array[:,1]
 
