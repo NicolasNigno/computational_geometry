@@ -1,6 +1,7 @@
 from cloud import uniformCloud
 from cloud import gaussianCloud
 from greenTheorem import greenTheorem
+from BruteForce import getUnique
 import numpy as np
 from matplotlib import pyplot as plt
 import time
@@ -46,7 +47,8 @@ def Incremental(cloud):
         while len(convexhull_lw) > 2 and cruz_crit(convexhull_lw) < 0:
             convexhull_lw = np.delete(convexhull_lw, -2, axis=0)
                            
-    area_ch = greenTheorem(np.append(convexhull_up,convexhull_lw,axis=0))
+    convexhull = getUnique(np.append(convexhull_up,convexhull_lw,axis=0))
+    area_ch = greenTheorem(convexhull)
     
     print("Tiempo de ejecucion - Incremental: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
-    return np.append(convexhull_up,convexhull_lw,axis=0)
+    return convexhull

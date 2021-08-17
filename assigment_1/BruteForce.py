@@ -5,6 +5,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 
+def getUnique(cloud):
+    new_array = [tuple(row) for row in cloud]
+    return np.unique(new_array, axis=0)
+
 def BruteForce(cloud):
     
     start_time = time.time()
@@ -30,6 +34,7 @@ def BruteForce(cloud):
                     new = np.array([[px,py], [qx, qy]])
                     convexhull = np.append(convexhull, new , axis=0)
                     
+    convexhull = getUnique(convexhull)
     area_ch = greenTheorem(convexhull)
     
     print("Tiempo de ejecucion - BruteForce: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)

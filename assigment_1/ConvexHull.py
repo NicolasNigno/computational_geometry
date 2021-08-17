@@ -16,7 +16,7 @@ def ConvexHull(loop):
     for i in loop:
         
         print(i)
-        cloud_1 = gaussianCloud(1,0.5,i)
+        cloud_1 = gaussianCloud(0,1,i)
 
         if i <= 2000:
             
