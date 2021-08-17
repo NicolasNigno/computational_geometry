@@ -41,8 +41,6 @@ def brute_force(cloud):
 
 def divide_conquer(cloud):
     
-    print('version2')
-    
     start_time = time.time()
     num_cores = 2*multiprocessing.cpu_count()    
     
