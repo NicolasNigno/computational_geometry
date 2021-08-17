@@ -4,12 +4,12 @@ from greenTheorem import greenTheorem
 from BruteForce import BruteForce
 from Incremental import Incremental
 from Incremental import cruz_crit
-#from Divide&Conquer import divide_conquer
+from divide_conquer import divide_conquer
 import numpy as np
 from matplotlib import pyplot as plt
 import time
 
-loop_list = [100,200,500,1000,1500,10000,20000,50000,100000,150000,200000,1000000]
+loop_list = [100,200,500,1000,1500,10000,20000,50000,80000,100000,150000,200000,500000,1000000]
 
 def ConvexHull(loop):
     
@@ -36,12 +36,13 @@ def ConvexHull(loop):
         plt.clf()
         np.savetxt('Results/Incremental %2s.csv' %i, convexhull_2, delimiter=",")
     
-        #convexhull_3 = divide_conquer(cloud_1)
-        #ax = plt.gca()
-        #ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
-        #ax.scatter(convexhull_3[:,0], convexhull_3[:,1], c='green')
-        #plt.savefig('Results/divide_conquer %2s.png' %i)
-        #numpy.savetxt('Results/divide_conquer %2s.csv' %i, convexhull_3, delimiter=",")
+        convexhull_3 = divide_conquer(cloud_1)
+        ax = plt.gca()
+        ax.scatter(cloud_1[:,0], cloud_1[:,1], c='black')
+        ax.scatter(convexhull_3[:,0], convexhull_3[:,1], c='green')
+        plt.savefig('Results/divide_conquer %2s.png' %i)
+        plt.clf()
+        np.savetxt('Results/divide_conquer %2s.csv' %i, convexhull_3, delimiter=",")
         
 
 ConvexHull(loop_list)

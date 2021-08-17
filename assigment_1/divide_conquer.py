@@ -1,6 +1,7 @@
 import numpy as np
 from multiprocessing import Pool
 import multiprocessing
+from greenTheorem import greenTheorem
 import time
 
 def splitCloud(cloud, size_group):
@@ -49,6 +50,7 @@ def divide_conquer(cloud):
         result = pool.map(func=BruteForce, iterable = groups,)
         cloud = np.concatenate(result)
     
-    print("Tiempo de ejecucion - divide & conquer: %s seconds." % (time.time() - start_time))
+    area_ch = greenTheorem(BruteForce(cloud))
+    print("Tiempo de ejecucion - divide & conquer: %s seconds." % (time.time() - start_time), "Area convexhull %s" %area_ch)
     
     return BruteForce(cloud)
