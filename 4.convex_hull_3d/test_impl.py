@@ -2,7 +2,7 @@ from convex_hull_3d import convexhull_nd
 import numpy as np
 from datetime import datetime
 
-points = rng.random((300, 3))
+points = rng.random((1000, 3))
 
 start = datetime.now()
 points, vertices, simplices, points_simplices = convexhull_nd(points)
