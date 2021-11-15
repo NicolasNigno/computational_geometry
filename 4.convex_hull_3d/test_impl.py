@@ -1,7 +1,9 @@
 from convex_hull_3d import convexhull_nd
 import numpy as np
 from datetime import datetime
+import matplotlib.pyplot as plt
 
+rng = np.random.default_rng()
 points = rng.random((1000, 3))
 
 start = datetime.now()

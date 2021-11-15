@@ -29,7 +29,7 @@ def tomarPunto(idImg, image_draw, colorPunto):
 
 red = [0, 0, 255] #color para pintar puntos
 
-cap = cv2.VideoCapture("Autopista_resize3.mp4")
+cap = cv2.VideoCapture("E:\Documentos\Maestria AI\Segundo Semestre\Geometria Computacional\Proyecto/F1 2021 Brazil Interlagos Alonso low.mp4")
 obj_detec = cv2.createBackgroundSubtractorMOG2(history=500, varThreshold=40, detectShadows=False)
 kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 
