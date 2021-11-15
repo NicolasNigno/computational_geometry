@@ -13,9 +13,9 @@ def convexhull_nd(array):
     out = []
 
     for i in simplices:
-        p0 = points3d[i[0],:]
-        p1 = points3d[i[1],:]
-        p2 = points3d[i[2],:]
+        p0 = points[i[0],:]
+        p1 = points[i[1],:]
+        p2 = points[i[2],:]
         
         temp = [p0, p1, p2]
         out.append(temp)

@@ -5,7 +5,7 @@ from scipy.spatial import ConvexHull, convex_hull_plot_2d
 
 ## Ejemplo 2D
 rng = np.random.default_rng()
-points = rng.random((30, 2))   # 30 random points in 2-D
+points = rng.random((100, 2))   # 30 random points in 2-D
 hull = ConvexHull(points)
 plt.plot(points[:,0], points[:,1], 'o')
 for simplex in hull.simplices:
@@ -13,7 +13,7 @@ for simplex in hull.simplices:
     
 ## Ejemplo 3D
 rng = np.random.default_rng()
-points3d = rng.random((30, 3))   # 30 random points in 2-D
+points3d = rng.random((300, 3))   # 30 random points in 2-D
 hull3d = ConvexHull(points3d)
 vertices3d = points3d[hull3d.vertices,:]
 
