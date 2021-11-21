@@ -4,7 +4,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 rng = np.random.default_rng()
-points = rng.random((700, 3))
+points = rng.random((700, 2))
 
 start = datetime.now()
 points, vertices, simplices, points_simplices = convexhull_nd(points)
@@ -29,4 +29,3 @@ if points.shape[1] == 2:
         plt.plot(points[simplex, 0], points[simplex, 1], 'k--')
         
     plt.show()
-
